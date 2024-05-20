@@ -1,9 +1,9 @@
-import Container from '../Container'
-import { AiOutlineMenu } from 'react-icons/ai'
 import { useState } from 'react'
+import { AiOutlineMenu } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import Container from '../Container'
+import avatarImg from '../../../assets/placeholder.jpg'
 import useAuth from '../../../hooks/useAuth'
-import avatarImg from '../../../assets/images/placeholder.jpg'
 
 const Navbar = () => {
   const { user, logOut } = useAuth()

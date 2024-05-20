@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types'
-import { createContext, useEffect, useState } from 'react'
+import axios from 'axios'
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -11,8 +10,9 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth'
+import PropTypes from 'prop-types'
+import { createContext, useEffect, useState } from 'react'
 import { app } from '../firebase/firebase.config'
-import axios from 'axios'
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
 const googleProvider = new GoogleAuthProvider()
