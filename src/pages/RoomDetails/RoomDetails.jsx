@@ -5,18 +5,18 @@ import RoomReservation from '../../components/RoomDetails/RoomReservation'
 import Container from '../../components/Shared/Container'
 import Heading from '../../components/Shared/Heading'
 import LoadingSpinner from '../../components/Shared/LoadingSpinner'
-import useAxiosSecure from '../../hooks/useAxiosSecure'
+import useAxiosCommon from '../../hooks/useAxiosCommon'
 
 
 const RoomDetails = () => {
 
   const { id } = useParams()
-  const axiosSecure = useAxiosSecure ()
+  const axiosCommon = useAxiosCommon()
 
   const { data: room = {}, isLoading } = useQuery({
     queryKey: ['room', id],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/room/${id}`)
+      const { data } = await axiosCommon.get(`/room/${id}`)
 
       return data
     }
