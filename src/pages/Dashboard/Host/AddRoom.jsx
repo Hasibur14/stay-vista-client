@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import imageUpload from "../../../api/utils";
 import AddRoomForm from "../../../components/Form/AddRoomForm";
 import useAuth from "../../../hooks/useAuth";
@@ -59,7 +60,7 @@ const AddRoom = () => {
                 image_url,
                 host
             };
-            console.log(roomData)
+            console.table(roomData)
 
         } catch (err) {
             console.log(err)
@@ -73,8 +74,12 @@ const AddRoom = () => {
     }
 
     return (
+
         <div>
-            <h2>Add Room page......</h2>
+
+            <Helmet>
+                <title>Add Room | Dashboard</title>
+            </Helmet>
 
             {/* Form */}
             <AddRoomForm
