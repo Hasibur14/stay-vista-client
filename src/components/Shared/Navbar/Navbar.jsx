@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import Container from '../Container'
 import avatarImg from '../../../assets/placeholder.jpg'
 import useAuth from '../../../hooks/useAuth'
+import Container from '../Container'
 
 const Navbar = () => {
   const { user, logOut } = useAuth()
@@ -62,13 +62,17 @@ const Navbar = () => {
                   <div className='flex flex-col cursor-pointer'>
                     <Link
                       to='/'
-                      className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
-                    >
+                      className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold' >
                       Home
                     </Link>
 
                     {user ? (
                       <>
+                        <Link
+                          to='/dashboard'
+                          className='block  px-4 py-3 hover:bg-neutral-100 transition font-semibold'>
+                          Dashboard
+                        </Link>
                         <div
                           onClick={logOut}
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
