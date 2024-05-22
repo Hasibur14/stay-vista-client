@@ -2,7 +2,8 @@ import toast from 'react-hot-toast'
 import { FcGoogle } from 'react-icons/fc'
 import { TbFidgetSpinner } from "react-icons/tb"
 import { Link, useNavigate } from 'react-router-dom'
-import imageUpload from '../../api/utils'
+
+import { imageUpload } from '../../api/utils'
 import useAuth from '../../hooks/useAuth'
 
 

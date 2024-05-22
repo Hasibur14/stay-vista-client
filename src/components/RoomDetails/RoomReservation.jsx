@@ -5,10 +5,12 @@ import Button from '../Shared/Button/Button';
 
 const RoomReservation = ({ room }) => {
 
+  console.log(room.to, room.from)
+
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: new Date(room.from),
+      endDate: new Date(room.to),
       key: 'selection'
     }
   ]);
@@ -25,8 +27,18 @@ const RoomReservation = ({ room }) => {
         <DateRange
           showDateDisplay={false}
           rangeColors={['#F6657E']}
-          editableDateInputs={true}
-          onChange={item => setState([item.selection])}
+          // editableDateInputs={true}
+          onChange={item => {
+            console.log(item)
+            setState([
+              {
+                startDate: new Date(room.from),
+                endDate: new Date(room.to),
+                key: 'selection'
+              }
+            ])
+          }
+          }
           moveRangeOnFirstSelection={false}
           ranges={state}
         />

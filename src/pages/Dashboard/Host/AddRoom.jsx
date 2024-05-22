@@ -1,51 +1,68 @@
-import { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import imageUpload from "../../../api/utils";
-import AddRoomForm from "../../../components/Form/AddRoomForm";
-import useAuth from "../../../hooks/useAuth";
-
+import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { imageUpload } from '../../../api/utils'
+import AddRoomForm from '../../../components/Form/AddRoomForm'
+import useAuth from '../../../hooks/useAuth'
+import useAxiosSecure from '../../../hooks/useAxiosSecure'
 
 const AddRoom = () => {
-
+    const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
+    const [loading, setLoading] = useState(false)
     const { user } = useAuth()
     const [imagePreview, setImagePreview] = useState()
     const [imageText, setImageText] = useState('Upload Image')
-
     const [dates, setDates] = useState({
         startDate: new Date(),
         endDate: new Date(),
-        key: 'selection'
+        key: 'selection',
     })
 
-    //date range handler
-    const handledDate = item => {
-        console.log(item)
+    //Date range handler
+    const handleDates = item => {
         setDates(item.selection)
-    };
+    }
 
+    const { mutateAsync } = useMutation({
+        mutationFn: async roomData => {
+            const { data } = await axiosSecure.post(`/room`, roomData)
+            return data
+        },
+        onSuccess: () => {
+            console.log('Data Saved Successfully')
+            toast.success('Room Added Successfully!')
+            navigate('/dashboard/my-listings')
+            setLoading(false)
+        },
+    })
 
+    //   Form handler
     const handleSubmit = async e => {
         e.preventDefault()
+        setLoading(true)
         const form = e.target
         const location = form.location.value
         const category = form.category.value
         const title = form.title.value
-        const to = dates.startDate
-        const from = dates.endDate
+        const to = dates.endDate
+        const from = dates.startDate
         const price = form.price.value
-        const guest = form.guest.value
+        const guests = form.total_guest.value
         const bathrooms = form.bathrooms.value
         const description = form.description.value
         const bedrooms = form.bedrooms.value
         const image = form.image.files[0]
         const host = {
             name: user?.displayName,
-            image: user.photoURL,
-            email: user?.email
+            image: user?.photoURL,
+            email: user?.email,
         }
 
         try {
-            const image_url = await imageUpload(image);
+            const image_url = await imageUpload(image)
             const roomData = {
                 location,
                 category,
@@ -53,30 +70,32 @@ const AddRoom = () => {
                 to,
                 from,
                 price,
-                guest,
+                guests,
                 bathrooms,
-                description,
                 bedrooms,
-                image_url,
-                host
-            };
+                host,
+                description,
+                image: image_url,
+            }
             console.table(roomData)
 
+            //   Post request to server
+            await mutateAsync(roomData)
         } catch (err) {
             console.log(err)
+            toast.error(err.message)
+            setLoading(false)
         }
-    };
+    }
 
-    //handle image change
+    //   handle image change
     const handleImage = image => {
         setImagePreview(URL.createObjectURL(image))
         setImageText(image.name)
     }
 
     return (
-
-        <div>
-
+        <>
             <Helmet>
                 <title>Add Room | Dashboard</title>
             </Helmet>
@@ -84,16 +103,16 @@ const AddRoom = () => {
             {/* Form */}
             <AddRoomForm
                 dates={dates}
-                handledDate={handledDate}
+                handleDates={handleDates}
                 handleSubmit={handleSubmit}
                 setImagePreview={setImagePreview}
                 imagePreview={imagePreview}
                 handleImage={handleImage}
                 imageText={imageText}
-            ></AddRoomForm>
+                loading={loading}
+            />
+        </>
+    )
+}
 
-        </div>
-    );
-};
-
-export default AddRoom;
+export default AddRoom

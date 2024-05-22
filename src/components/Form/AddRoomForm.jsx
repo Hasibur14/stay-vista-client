@@ -1,19 +1,16 @@
-
-import { DateRange } from 'react-date-range';
-import { categories } from '../Categories/CategoriesData';
-
-
+import { DateRange } from 'react-date-range'
+import { TbFidgetSpinner } from 'react-icons/tb'
+import { categories } from '../Categories/CategoriesData'
 const AddRoomForm = ({
     dates,
-    handledDate,
+    handleDates,
     handleSubmit,
     setImagePreview,
     imagePreview,
-    handleImage ,
-    imageText}) => {
-
-
-
+    imageText,
+    handleImage,
+    loading,
+}) => {
     return (
         <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
             <form onSubmit={handleSubmit}>
@@ -40,7 +37,8 @@ const AddRoomForm = ({
                             <select
                                 required
                                 className='w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md'
-                                name='category' >
+                                name='category'
+                            >
                                 {categories.map(category => (
                                     <option value={category.label} key={category.label}>
                                         {category.label}
@@ -55,9 +53,9 @@ const AddRoomForm = ({
                             </label>
                             {/* Calender */}
                             <DateRange
-                                rangeColors={['rgb(246, 101, 126)']}
+                                rangeColors={['#F43F5E']}
                                 editableDateInputs={true}
-                                onChange={item => handledDate(item)}
+                                onChange={item => handleDates(item)}
                                 moveRangeOnFirstSelection={false}
                                 ranges={[dates]}
                             />
@@ -78,7 +76,7 @@ const AddRoomForm = ({
                             />
                         </div>
 
-                        <div className='flex p-4 bg-white w-full  m-auto rounded-lg justify-around'>
+                        <div className=' p-4 bg-white w-full  m-auto rounded-lg flex justify-between items-center'>
                             <div className='file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg'>
                                 <div className='flex flex-col w-max mx-auto text-center'>
                                     <label>
@@ -92,16 +90,18 @@ const AddRoomForm = ({
                                             hidden
                                         />
                                         <div className='bg-rose-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-rose-500'>
-                                        {imageText.length > 20 ? imageText.slice(0, 17) + '...' : imageText}
-                                        
+                                            {/* {imageText} */}
+                                            {imageText.length > 20
+                                                ? imageText.split('.')[0].slice(0, 15) +
+                                                '....' +
+                                                imageText.split('.')[1]
+                                                : imageText}
                                         </div>
                                     </label>
                                 </div>
                             </div>
-                            <div className='w-16 h-16 object-cover overflow-hidden flex items-center'>
-                                {
-                                    imagePreview && <img src={imagePreview} alt="" />
-                                }
+                            <div className='h-16 w-16 object-cover overflow-hidden flex items-center'>
+                                {imagePreview && <img src={imagePreview} />}
                             </div>
                         </div>
                         <div className='flex justify-between gap-2'>
@@ -179,10 +179,15 @@ const AddRoomForm = ({
                 </div>
 
                 <button
+                    disabled={loading}
                     type='submit'
                     className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500'
                 >
-                    Save & Continue
+                    {loading ? (
+                        <TbFidgetSpinner className='animate-spin m-auto' />
+                    ) : (
+                        ' Save & Continue'
+                    )}
                 </button>
             </form>
         </div>
