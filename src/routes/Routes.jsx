@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Main from '../layouts/Main'
+import ManageUser from '../pages/Dashboard/Admin/ManageUser'
+import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
 import AddRoom from '../pages/Dashboard/Host/AddRoom'
 import MyListings from '../pages/Dashboard/Host/MyListings'
@@ -44,7 +46,15 @@ export const router = createBrowserRouter([
       {
         path: 'my-listings',
         element: <MyListings></MyListings>
-      }
+      },
+      {
+        path: 'manage-user',
+        element:<ManageUser></ManageUser>
+      },
+      {
+        path: 'profile',
+        element: <Profile></Profile>
+      },
     ]
   }
 ])
