@@ -7,7 +7,7 @@ import Button from '../Shared/Button/Button';
 
 const RoomReservation = ({ room }) => {
 
-  console.log(room.to, room.from)
+  //console.log(room.to, room.from)
 
   const [state, setState] = useState([
     {
@@ -22,7 +22,7 @@ const RoomReservation = ({ room }) => {
   const totalPrice = parseInt(
     differenceInCalendarDays(new Date(room.to), new Date(room.from)) * room?.price
   )
-  console.log(totalPrice)
+  //console.log(totalPrice)
 
 
 
