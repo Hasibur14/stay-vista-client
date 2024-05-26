@@ -16,7 +16,7 @@ const Sidebar = () => {
     const [isActive, setActive] = useState(false);
     const [toggle, setToggle] = useState(true)
     const [role, isLoading] = useRole();
-    console.log(role, isLoading)
+   //console.log(role, isLoading)
 
     // Sidebar Responsive Handler
     const handleToggle = () => {
@@ -89,7 +89,7 @@ const Sidebar = () => {
                         <nav>
 
                             {role === 'guest' && <GuestMenu />}
-                            {role === 'host' &&  toggle? <HostMenu /> : <GuestMenu/>}
+                            {role === 'host' &&  toggle?  <HostMenu /> : <GuestMenu/>}
                             {role === 'admin' && <AdminMenu />}
                         </nav>
                     </div>

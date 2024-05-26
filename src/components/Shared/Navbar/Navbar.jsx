@@ -20,6 +20,7 @@ const Navbar = () => {
     setIsModalOpen(false)
   };
 
+  //modal handler
   const modalHandler = async () => {
     console.log('I want to be a host')
     closeModal()
@@ -40,7 +41,7 @@ const Navbar = () => {
     catch (err) {
       console.log(err)
       toast.error(err.message)
-    }
+    }     
     finally {
       closeModal()
     }
