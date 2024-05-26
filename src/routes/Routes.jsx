@@ -4,6 +4,7 @@ import Main from '../layouts/Main'
 import ManageUser from '../pages/Dashboard/Admin/ManageUser'
 import Profile from '../pages/Dashboard/Common/Profile'
 import Statistics from '../pages/Dashboard/Common/Statistics'
+import MyBookings from '../pages/Dashboard/Guest/MyBookings'
 import AddRoom from '../pages/Dashboard/Host/AddRoom'
 import MyListings from '../pages/Dashboard/Host/MyListings'
 import ErrorPage from '../pages/ErrorPage'
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
           </HostRoute>
         </PrivateRoute>
       },
-      { 
+      {
         path: 'my-listings',
         element: <PrivateRoute>
           <HostRoute>
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             <ManageUser></ManageUser>
           </AdminRoute>
         </PrivateRoute>
+      },
+      {
+        path: 'my-bookings',
+        element: <PrivateRoute> <MyBookings></MyBookings> </PrivateRoute>
       },
       {
         path: 'profile',
