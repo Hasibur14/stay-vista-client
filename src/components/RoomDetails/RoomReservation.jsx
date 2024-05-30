@@ -5,7 +5,9 @@ import { DateRange } from 'react-date-range'
 import useAuth from '../../hooks/useAuth'
 import BookingModal from '../Modal/BookingModal'
 import Button from '../Shared/Button/Button'
+
 const RoomReservation = ({ room }) => {
+  
   const { user } = useAuth()
   const [isOpen, setIsOpen] = useState(false)
   const [state, setState] = useState([
